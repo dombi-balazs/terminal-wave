@@ -8,7 +8,7 @@
 ```
 ## 💾 About the Project
 
-**TerminalWave** is a console-based music player built with C# and .NET. Designed with a clean Terminal User Interface (TUI), it automatically discovers and plays `.mp3` files located in the user's standard `MyMusic` directory.
+**TerminalWave** is a console-based music player built with C# and .NET. Designed with a clean Terminal User Interface (TUI), it automatically discovers and plays `.mp3` and `.wav` files located in the user's standard `MyMusic` directory.
 
 The application strictly adheres to the **MVVM (Model-View-ViewModel)** architectural pattern, ensuring a clean separation of concerns between the underlying audio processing logic and the console rendering loop.
 
