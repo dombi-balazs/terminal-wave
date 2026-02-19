@@ -30,7 +30,7 @@ internal class Program
                     case ConsoleKey.P: viewmodel.Previous(); break;
                     case ConsoleKey.F: viewmodel.FastForward(); break;
                     case ConsoleKey.B: viewmodel.Rewind(); break;
-                    case ConsoleKey.Escape: isRunning = false; break;
+                    case ConsoleKey.Q: isRunning = false; break;
                 }
                 while (Console.KeyAvailable) Console.ReadKey(intercept: true);
             }
@@ -58,8 +58,8 @@ internal class Program
             }
         }
 
-        WriteLineSafe("=== TerminalWave Alpha ===");
-        WriteLineSafe("[Space] Play/Pause | [N] Next | [P] Prev | [F] +5s | [B] -5s | [Esc] Exit");
+        WriteLineSafe("=== TerminalWave ===");
+        WriteLineSafe("[Space] Play/Pause | [N] Next | [P] Prev | [F] +5s | [B] -5s | [Q] Exit");
         WriteLineSafe(new string('-', width));
         WriteLineSafe($"Status: {state} | Time: {viewmodel.CurrentTime:mm\\:ss} / {viewmodel.TotalTime:mm\\:ss}");
         WriteLineSafe("");

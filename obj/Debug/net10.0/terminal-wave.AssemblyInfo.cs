@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("terminal-wave")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8307ea5cc6220333e70ab8edb362de580271d3ab")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+74abc97a7a278b31f962f73adcf792f21d8d54f7")]
 [assembly: System.Reflection.AssemblyProductAttribute("terminal-wave")]
 [assembly: System.Reflection.AssemblyTitleAttribute("terminal-wave")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

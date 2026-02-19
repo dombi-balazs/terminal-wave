@@ -71,15 +71,17 @@ public class PlayerService : IPlayerService, IDisposable
     }
 
     private void OnPlaybackStopped(object? sender, StoppedEventArgs e)
-    {
-        if (_isInternalChange) return;
+{
+    if (_isInternalChange) return;
+    
+    TrackFinished?.Invoke();
 
-        if (_audioFile != null && _audioFile.Position >= _audioFile.Length)
-        {
-            TrackFinished?.Invoke();
-            Task.Run(() => NextTrack());
-        }
-    }
+    Task.Run(() => 
+    {
+        Thread.Sleep(100); 
+        NextTrack();
+    });
+}
 
     public void PauseMusic() => _outputDevice?.Pause();
     public void ResumeMusic() => _outputDevice?.Play();
