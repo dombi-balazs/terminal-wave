@@ -12,6 +12,8 @@
 
 The application strictly adheres to the **MVVM (Model-View-ViewModel)** architectural pattern, ensuring a clean separation of concerns between the underlying audio processing logic and the console rendering loop.
 
+<img width="1464" height="746" alt="image" src="https://github.com/user-attachments/assets/c1560aa9-3a0d-42c4-a22e-272f5626ecd4" />
+
 ## ⚡ Features
 
 * **Automated Library Discovery:** Recursively scans the system's `MyMusic` folder for `.mp3` files on startup.
