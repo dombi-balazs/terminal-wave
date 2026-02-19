@@ -1,6 +1,6 @@
 namespace TerminalWave.Entities;
 
-class MusicEntity
+public class MusicEntity
 {
     public string MusicName { get; set; } = string.Empty;
     public TimeSpan MusicLength { get; set; }
