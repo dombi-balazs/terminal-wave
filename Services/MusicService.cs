@@ -1,28 +1,24 @@
 using TerminalWave.Entities;
 using System;
 using System.IO;
-using System.Reflection.Metadata.Ecma335;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace TerminalWave.Services;
 
-public class MusicService: IMusicService
+public class MusicService : IMusicService
 {
     public IEnumerable<MusicEntity> GetMusicFiles()
     {
-        string MusicFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
-        var MusicList = new List<MusicEntity>();
-        var Files = Directory.EnumerateFiles(MusicFolder, "*mp3", SearchOption.AllDirectories);
-        foreach (var File in Files)
-        {
-            MusicList.Add(new MusicEntity
-            {
-                MusicName = Path.GetFileNameWithoutExtension(File),
-                MusicPath = File,
-                MusicLength = TimeSpan.Zero
+        string musicFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+        if (!Directory.Exists(musicFolder)) return Enumerable.Empty<MusicEntity>();
 
-            }
-            );
-        };
-        return MusicList;
+        return Directory.EnumerateFiles(musicFolder, "*.mp3", SearchOption.AllDirectories)
+            .Select(file => new MusicEntity
+            {
+                MusicName = Path.GetFileNameWithoutExtension(file),
+                MusicPath = file,
+                MusicLength = TimeSpan.Zero
+            }).ToList();
     }
-};
+}
