@@ -1,7 +1,5 @@
 using TerminalWave.Entities;
 using TerminalWave.Services;
-using NAudio.Wave;
-using System.Linq;
 
 namespace TerminalWave.ViewModel;
 

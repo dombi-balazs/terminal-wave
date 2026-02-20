@@ -1,5 +1,4 @@
 using TerminalWave.Entities;
-using NAudio.Wave;
 
 namespace TerminalWave.Services;
 

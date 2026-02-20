@@ -1,26 +1,36 @@
-using NAudio.Wave;
 using TerminalWave.Entities;
-using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 
 namespace TerminalWave.Services;
 
 public class PlayerService : IPlayerService, IDisposable
 {
-    private WaveOutEvent? _outputDevice;
-    private AudioFileReader? _audioFile;
+    private MediaPlayer? _player;
     private List<MusicEntity> _playlist = new();
     private int _currentIndex = -1;
     private bool _isInternalChange = false;
 
-    public PlaybackState State => _outputDevice?.PlaybackState ?? PlaybackState.Stopped;
+    public PlaybackState State
+    {
+        get
+        {
+            if (_player == null) return PlaybackState.Stopped;
+            return _player.PlaybackSession.PlaybackState switch
+            {
+                MediaPlaybackState.Playing => PlaybackState.Playing,
+                MediaPlaybackState.Paused => PlaybackState.Paused,
+                _ => PlaybackState.Stopped
+            };
+        }
+    }
+
     public MusicEntity? CurrentTrack => (_currentIndex >= 0 && _currentIndex < _playlist.Count) ? _playlist[_currentIndex] : null;
     public int CurrentIndex => _currentIndex;
-    public TimeSpan CurrentTime => _audioFile?.CurrentTime ?? TimeSpan.Zero;
-    public TimeSpan TotalTime => _audioFile?.TotalTime ?? TimeSpan.Zero;
+    
+    public TimeSpan CurrentTime => _player?.PlaybackSession.Position ?? TimeSpan.Zero;
+    public TimeSpan TotalTime => CurrentTrack?.MusicLength ?? _player?.PlaybackSession.NaturalDuration ?? TimeSpan.Zero;
+
     public event Action? TrackFinished;
 
     public void LoadPlaylist(IEnumerable<MusicEntity> playlist)
@@ -32,18 +42,17 @@ public class PlayerService : IPlayerService, IDisposable
     public void PlayMusic(MusicEntity music)
     {
         _isInternalChange = true;
-        StopMusic();
+        
+        if (_player == null)
+        {
+            _player = new MediaPlayer();
+            _player.MediaEnded += OnPlaybackStopped;
+        }
 
         try
         {
-            if (!File.Exists(music.MusicPath)) return;
-
-            _audioFile = new AudioFileReader(music.MusicPath);
-            _outputDevice = new WaveOutEvent();
-            _outputDevice.PlaybackStopped += OnPlaybackStopped;
-            _outputDevice.Init(_audioFile);
-            _outputDevice.Play();
-
+            _player.Source = MediaSource.CreateFromUri(new Uri(music.MusicPath));
+            _player.Play();
             _currentIndex = _playlist.IndexOf(music);
         }
         catch (Exception ex)
@@ -70,35 +79,26 @@ public class PlayerService : IPlayerService, IDisposable
         PlayMusic(_playlist[_currentIndex]);
     }
 
-    private void OnPlaybackStopped(object? sender, StoppedEventArgs e)
-{
-    if (_isInternalChange) return;
-    
-    TrackFinished?.Invoke();
-
-    Task.Run(() => 
+    private void OnPlaybackStopped(MediaPlayer sender, object args)
     {
-        Thread.Sleep(100); 
+        if (_isInternalChange) return;
+        
+        TrackFinished?.Invoke();
         NextTrack();
-    });
-}
+    }
 
-    public void PauseMusic() => _outputDevice?.Pause();
-    public void ResumeMusic() => _outputDevice?.Play();
+    public void PauseMusic() => _player?.Pause();
+    public void ResumeMusic() => _player?.Play();
 
     public void StopMusic()
     {
-        if (_outputDevice != null)
+        if (_player != null)
         {
-            _outputDevice.PlaybackStopped -= OnPlaybackStopped;
-            _outputDevice.Stop();
-            _outputDevice.Dispose();
-            _outputDevice = null;
-        }
-        if (_audioFile != null)
-        {
-            _audioFile.Dispose();
-            _audioFile = null;
+            _player.MediaEnded -= OnPlaybackStopped;
+            _player.Pause();
+            _player.Source = null;
+            _player.Dispose();
+            _player = null;
         }
     }
 
@@ -107,11 +107,16 @@ public class PlayerService : IPlayerService, IDisposable
 
     private void Seek(TimeSpan offset)
     {
-        if (_audioFile == null) return;
-        var newTime = _audioFile.CurrentTime + offset;
+        if (_player == null) return;
+        var session = _player.PlaybackSession;
+        
+        var newTime = session.Position + offset;
         if (newTime < TimeSpan.Zero) newTime = TimeSpan.Zero;
-        if (newTime > _audioFile.TotalTime) newTime = _audioFile.TotalTime;
-        _audioFile.CurrentTime = newTime;
+        
+        var total = session.NaturalDuration;
+        if (total != TimeSpan.Zero && newTime > total) newTime = total;
+        
+        session.Position = newTime;
     }
 
     public void Dispose() => StopMusic();

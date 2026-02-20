@@ -1,6 +1,6 @@
 ﻿using TerminalWave.Services;
 using TerminalWave.ViewModel;
-using NAudio.Wave;
+using TerminalWave.Entities;
 
 namespace TerminalWave;
 
