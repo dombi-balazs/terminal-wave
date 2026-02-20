@@ -73,7 +73,7 @@ TerminalWave supports custom ASCII art for your favorite artists. Simply:
 This project was developed collaboratively, dividing the underlying logic and the visual presentation:
 
 * **Backend / Audio Engine:** [@dombi-balazs](https://github.com/dombi-balazs)
-* **Frontend / TUI (Console UI):** [@K.Gergo2024](https://github.com/K.Gergo2024)
+* **Frontend / TUI (Console UI):** [@KiralyGergo](https://github.com/kiralygergo)
 
 ---
 
