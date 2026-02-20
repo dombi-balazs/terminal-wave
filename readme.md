@@ -12,8 +12,7 @@
 
 The application strictly adheres to the **MVVM (Model-View-ViewModel)** architectural pattern, ensuring a clean separation of concerns between the underlying audio processing logic and the console rendering loop.
 
-
-<img width="1919" height="747" alt="image" src="https://github.com/user-attachments/assets/8b572f19-2713-47b8-838b-ffb0f41be712" />
+<img width="972" height="719" alt="image" src="https://github.com/user-attachments/assets/ed9d021e-1b66-433d-bf7d-d93fb9e738ec" />
 
 ## ⚡ Features
 
