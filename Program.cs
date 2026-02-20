@@ -114,6 +114,7 @@ internal class Program
         WriteListLine("--- TERMINAL WAVE | DASHBOARD ---", ConsoleColor.DarkYellow);
         WriteListLine("[ARROWS] NAV [ENTER] PLAY [SPACE] PAUSE", ConsoleColor.DarkYellow);
         WriteListLine("[N/P] NEXT/PREV [F/B] FF/REW [Q] EXIT", ConsoleColor.DarkYellow);
+        WriteListLine("[T/A] TITLE/ARTIST SEARCH [M] MENU", ConsoleColor.DarkYellow);
         
         Console.ForegroundColor = ConsoleColor.White;
         WriteListLine(new string('=', listWidth), ConsoleColor.White);
