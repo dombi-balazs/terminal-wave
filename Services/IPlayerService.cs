@@ -5,6 +5,7 @@ namespace TerminalWave.Services;
 public interface IPlayerService
 {
     void LoadPlaylist(IEnumerable<MusicEntity> playlist);
+    void UpdatePlaylist(IEnumerable<MusicEntity> newPlaylist);
     void PlayMusic(MusicEntity music);
     void PauseMusic();
     void ResumeMusic();

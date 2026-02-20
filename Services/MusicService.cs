@@ -12,35 +12,43 @@ public class MusicService : IMusicService
         if (!Directory.Exists(musicFolder)) return Enumerable.Empty<MusicEntity>();
 
         return Directory.EnumerateFiles(musicFolder, "*.*", SearchOption.AllDirectories)
-            .Where(file => 
+            .Where(file =>
             {
                 string extension = Path.GetExtension(file).ToLowerInvariant();
                 return AllowedExtensions.Contains(extension);
             })
-            .Select(file => 
+            .OrderBy(file => file)
+            .Select(file =>
             {
+                string fileName = Path.GetFileName(file);
                 string title = Path.GetFileNameWithoutExtension(file);
+                string artist = "Unknown Artist";
                 TimeSpan duration = TimeSpan.Zero;
 
                 try
                 {
                     using var tagFile = TagLib.File.Create(file);
                     duration = tagFile.Properties.Duration;
-                    
+
                     if (!string.IsNullOrWhiteSpace(tagFile.Tag.Title))
                     {
-                        string artist = tagFile.Tag.FirstPerformer;
-                        title = string.IsNullOrEmpty(artist) ? tagFile.Tag.Title : $"{artist} - {tagFile.Tag.Title}";
+                        title = tagFile.Tag.Title;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(tagFile.Tag.FirstPerformer))
+                    {
+                        artist = tagFile.Tag.FirstPerformer;
                     }
                 }
                 catch
                 {
-                    
                 }
 
                 return new MusicEntity
                 {
-                    MusicName = title,
+                    FileName = fileName,
+                    Artist = artist,
+                    Title = title,
                     MusicPath = file,
                     MusicLength = duration
                 };
