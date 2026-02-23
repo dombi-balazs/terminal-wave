@@ -1,0 +1,14 @@
+C:\Users\kgeri\Desktop\tui\TuiPlayer\bin\Debug\net10.0\TuiPlayer.exe
+C:\Users\kgeri\Desktop\tui\TuiPlayer\bin\Debug\net10.0\TuiPlayer.deps.json
+C:\Users\kgeri\Desktop\tui\TuiPlayer\bin\Debug\net10.0\TuiPlayer.runtimeconfig.json
+C:\Users\kgeri\Desktop\tui\TuiPlayer\bin\Debug\net10.0\TuiPlayer.dll
+C:\Users\kgeri\Desktop\tui\TuiPlayer\bin\Debug\net10.0\TuiPlayer.pdb
+C:\Users\kgeri\Desktop\tui\TuiPlayer\obj\Debug\net10.0\TuiPlayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kgeri\Desktop\tui\TuiPlayer\obj\Debug\net10.0\TuiPlayer.AssemblyInfoInputs.cache
+C:\Users\kgeri\Desktop\tui\TuiPlayer\obj\Debug\net10.0\TuiPlayer.AssemblyInfo.cs
+C:\Users\kgeri\Desktop\tui\TuiPlayer\obj\Debug\net10.0\TuiPlayer.csproj.CoreCompileInputs.cache
+C:\Users\kgeri\Desktop\tui\TuiPlayer\obj\Debug\net10.0\TuiPlayer.dll
+C:\Users\kgeri\Desktop\tui\TuiPlayer\obj\Debug\net10.0\refint\TuiPlayer.dll
+C:\Users\kgeri\Desktop\tui\TuiPlayer\obj\Debug\net10.0\TuiPlayer.pdb
+C:\Users\kgeri\Desktop\tui\TuiPlayer\obj\Debug\net10.0\TuiPlayer.genruntimeconfig.cache
+C:\Users\kgeri\Desktop\tui\TuiPlayer\obj\Debug\net10.0\ref\TuiPlayer.dll
